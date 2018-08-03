@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.android.mytasks.addnewlist">
+
+
+
+
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        >
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/AddNewList_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            android:background="@color/colorPrimary"
+
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            >
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+
+
+
+
+
+
+
+    <android.support.v7.widget.AppCompatEditText
+
+        android:layout_marginTop="20dp"
+        android:padding="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="List Name"
+        android:id="@+id/addNewList_ListNameEditText"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="List Friends"
+        android:layout_margin="10dp"
+        />
+
+
+    <android.support.v7.widget.RecyclerView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/AddListMembers_Recycler">
+
+
+
+</android.support.v7.widget.RecyclerView>
+
+
+    <!--
+
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+       android:layout_marginLeft="@dimen/fab_margin"
+
+        >
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/addNewList_AddMember"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="center"
+        android:translationZ="@dimen/fab_press_translation_z"
+        android:layout_marginLeft="5dp"
+        />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center_horizontal"
+            android:text="Add a Freind"
+            android:layout_marginLeft="10dp"
+
+            />
+    </LinearLayout>
+
+
+-->
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/addNewList_CreateList"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="@dimen/fab_margin"
+        android:layout_marginRight="@dimen/fab_margin"
+        android:elevation="@dimen/fab_elevation"
+        android:translationZ="@dimen/fab_press_translation_z"
+        android:src="@drawable/ic_round_add_24px"
+        android:contentDescription="@string/ContentDesribtion_AddList"
+        />
+
+    </android.support.design.widget.CoordinatorLayout>
+
+</LinearLayout>

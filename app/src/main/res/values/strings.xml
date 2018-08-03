@@ -1,0 +1,68 @@
+<resources>
+    <string name="app_name">MyTasks</string>
+    <string name="title_activity_login">Sign in</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Email</string>
+    <string name="prompt_password">Password (optional)</string>
+    <string name="action_sign_in">Sign in or register</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">This email address is invalid</string>
+    <string name="error_invalid_password">This password is too short</string>
+    <string name="error_incorrect_password">This password is incorrect</string>
+    <string name="error_field_required">This field is required</string>
+    <string name="permission_rationale">Contacts permissions are needed for providing emai</string>
+
+
+
+
+    <!-- The Main Screen Strings -->
+
+
+    <string name="action_addNewTasksList"> this fab button to add a new task list </string>
+    <string name="MainScreen_TaskListIntent">TaskList</string>
+    <string name="MainScreen_ToDoLists">ToDoLists</string>
+
+
+    <string name="Users_Node">Users</string>
+    <string name="List_Node">Lists</string>
+    <string name="Friends_Node">Friends</string>
+    <string name="TasksList_Node">TasksList</string>
+    <string name="Status_Node">Status</string>
+
+    <string name="open">Open</string>
+    <string name="close">Close</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+
+
+
+
+    <string name="MainScreenLayout_NoLists">You Are Currently Do not have any Lists, You can create one, from the button in the end of this screen</string>
+
+
+
+
+    <!-- The Shared Tasks Wth Me Strings -->
+    <string name="SharedTasks_ScreenTitle">Shared Lists With Me</string>
+
+
+    <!-- Add New List Screen -->
+    <string name="AddNewList_ScreenTitle">My Lists</string>
+
+    <string name="ContentDesribtion_AddList">Add a New List</string>
+
+<string name="ShowCompleted_addtask">Show Completed Tasks</string>
+    <string name="HideCompleted_addtask">Hide Completed Tasks</string>
+
+
+    <string name="PickFreinds_Title">Share With Friends</string>
+
+    <string name="PickFreinds_Msg1">The Owner of The List Cannot be removed from the Shared List</string>
+
+    <string name="AddNewList__Msg1">You Must Add A List Name First</string>
+    <string name="AddNewYask__Msg1">You Must Add A Task Name First</string>
+
+
+
+</resources>

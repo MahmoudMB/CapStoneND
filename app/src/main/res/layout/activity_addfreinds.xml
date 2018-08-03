@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:id="@+id/addFriends_parentLayout"
+    tools:context="com.example.android.mytasks.addfreinds">
+
+
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        >
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/addFriends_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            >
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+
+
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+
+    >
+    <EditText
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary"
+        android:textColor="#FFFFFF"
+        android:hint="Search By Email"
+        android:textColorHint="#FFFFFF"
+        android:id="@+id/SearchFriend_EditText"
+        android:padding="10dp"
+        >
+    </EditText>
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/AddFreinds_Search"
+        android:text="Search"
+        android:textColor="#FFFFFF"
+        android:layout_alignTop="@+id/SearchFriend_EditText"
+        android:layout_alignRight="@+id/SearchFriend_EditText"
+        android:layout_alignBottom="@+id/SearchFriend_EditText"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:layout_marginRight="8dp"
+        android:visibility="gone"
+        android:padding="10dp"
+        />
+
+</RelativeLayout>
+
+
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:id="@+id/UserInformation"
+
+        android:visibility="gone"
+        >
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/AddFreind_FriendImage"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/user"
+            app:civ_border_width="1dp"
+            app:civ_border_color="@color/colorPrimary"
+            android:layout_margin="10dp"
+            />
+
+        <LinearLayout
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+
+            >
+            <TextView
+                android:id="@+id/AddFreind_FriendName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mahmoud Bahaa"
+                android:textColor="@color/Black"
+                />
+            <TextView
+                android:id="@+id/AddFreind_FriendEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mahmoud.nx@gmail.com"
+                android:layout_gravity="center"
+
+                />
+        </LinearLayout>
+
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/AddFreinds_Add"
+            android:text="Add Friend"
+        android:layout_gravity="center"
+            android:layout_marginRight="5dp"
+            android:padding="10dp"
+
+
+            />
+    </LinearLayout>
+
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My Friends List: "
+        android:layout_margin="10dp"
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="You are Currently Dont Have any Freinds"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/NoFriends"
+        />
+
+
+
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/AddFreindsRecycler">
+    </android.support.v7.widget.RecyclerView>
+
+
+
+
+</LinearLayout>

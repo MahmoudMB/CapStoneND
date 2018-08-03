@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+<item
+    android:id="@+id/account_drawer"
+    android:title="My Account"
+    android:icon="@drawable/ic_action_user"
+    />
+
+
+    <item
+        android:id="@+id/SharedLists_drawer"
+        android:title="Shared Lists with Me"
+        android:icon="@drawable/ic_action_share"
+
+        ></item>
+
+
+
+
+    <item
+        android:id="@+id/Friends_drawer"
+        android:title="My Friends"
+        android:icon="@drawable/ic_action_group"
+></item>
+
+
+    <item
+        android:id="@+id/LogOut_drawer"
+        android:title="LogOut"
+        android:icon="@drawable/ic_action_settings"
+ ></item>
+
+</menu>

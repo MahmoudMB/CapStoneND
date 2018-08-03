@@ -1,0 +1,110 @@
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        >
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            >
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+    <EditText
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/colorPrimary"
+        android:textColor="#FFFFFF"
+        android:hint="Add a New Task"
+        android:textColorHint="#FFFFFF"
+        android:id="@+id/addTask_AddNewTaskEditText"
+        android:padding="10dp"
+        android:layout_centerVertical="true"
+        >
+
+
+    </EditText>
+
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/addTask_fab"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="bottom|end"
+        android:layout_marginRight="5dp"
+        android:src="@drawable/ic_round_add_24px"
+        android:elevation="@dimen/fab_elevation"
+        android:translationZ="@dimen/fab_press_translation_z"
+        android:scaleType="center"
+        android:layout_alignTop="@+id/addTask_AddNewTaskEditText"
+        android:layout_alignRight="@+id/addTask_AddNewTaskEditText"
+        android:visibility="gone"
+        />
+
+    </RelativeLayout>
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:id="@+id/AddTask_Recycler"
+        >
+    </android.support.v7.widget.RecyclerView>
+
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:text="@string/ShowCompleted_addtask"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:layout_margin="16dp"
+        android:id="@+id/ShowComplated"
+
+        />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:id="@+id/AddTask_RecyclerCompletedTasks"
+        android:visibility="gone"
+        />
+
+    </LinearLayout>
+</ScrollView>
+
+
+</LinearLayout>
