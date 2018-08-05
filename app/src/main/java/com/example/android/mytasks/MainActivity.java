@@ -16,23 +16,12 @@ import butterknife.OnClick;
 public class MainActivity extends AppCompatActivity {
 
 
-  //  @BindView(R.id.signUpBtn)
-  //  TextView SignUpBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
        // ButterKnife.bind(this);
     }
-/*
-    @OnClick(R.id.signin) void SignIn() {
-        Intent i = new Intent(MainActivity.this,signinActivity.class);
-      startActivity(i);
-    }
-
-    @OnClick(R.id.signUpBtn) void SignUp() {
-        Intent i = new Intent(MainActivity.this,signupActivity.class);
-        startActivity(i);
-    }*/
 
 }

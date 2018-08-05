@@ -42,8 +42,6 @@ public class FirebaseManager {
     }
 
 
-
-
     private FirebaseManager(FirebaseCallBacks callBacks)
     {
         mUserReference = FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -52,10 +50,8 @@ public class FirebaseManager {
     }
 
 
-
     public static void createNewUser(String Email,String Pass,final String Name,String PhotoUrl,final UserLogin mUsersCallbacks)
     {
-        Log.v("Result1",Email);
         mAuth = FirebaseAuth.getInstance();
         final boolean[] result = new boolean[1];
         mAuth.createUserWithEmailAndPassword(Email,Pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -65,20 +61,16 @@ public class FirebaseManager {
                 if (task.isSuccessful())
                 {
                     FirebaseUser user = mAuth.getCurrentUser();
-                    Log.v("Result1",user.getEmail());
-                    Log.v("Result2",user.getUid());
                     Map<String,Object> map=new HashMap<>();
                     map.put("Uid",user.getUid());
                     map.put("Name",Name);
                     map.put("Email",user.getEmail());
-                    Log.v("Result3",user.getUid());
                     map.put("PhotoUrl"," ");
                     String keyToPush= mAuth.getCurrentUser().getUid();
                     FirebaseDatabase.getInstance().getReference().child("Users").child(keyToPush).setValue(map);
                     result[0] = true;
 
                     mUsersCallbacks.CheckStatusOfSignUp(true,"Succefful Sign Up");
-                    Log.v("Result","Succeful");
 
 
                     UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
@@ -110,27 +102,7 @@ public class FirebaseManager {
             }
         });
 
-
-
-
-
-
-
-
-//return result[0];
-
     }
-
-
-
-
-
-    public static void GetTasksLists()
-    {
-
-
-    }
-
 
     public void createNewList1(String ListName,List<User> freindsList)
     {
@@ -143,9 +115,6 @@ public class FirebaseManager {
         mapList.put("OwnerUID",FirebaseAuth.getInstance().getCurrentUser().getUid());
 
         FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Lists").child(keyToPush).setValue(mapList);
-
-
-        //FirebaseDatabase.getInstance().getReference().child("TasksList").child(keyToPush).setValue(mapList);
 
         for (int i=0;i<freindsList.size();i++)
         {
@@ -170,52 +139,9 @@ public class FirebaseManager {
         if (TextUtils.isEmpty(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl()+""))
             map.put("PhotoUrl"," ");
 
-
         FirebaseDatabase.getInstance().getReference().child("TasksList").child(keyToPush).child("Friends").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(map);
 
-
-
     }
-
-
-
-    public void createNewList(String ListName, List<User> freindsList)
-    {
-
-
-
-        Map<String,Object> map=new HashMap<>();
-        map.put("Name",ListName);
-
-        String keyToPush= FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Lists").push().getKey();
-        map.put("ListID",keyToPush);
-        FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Lists").child(keyToPush).setValue(map);
-        FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).keepSynced(true);
-
-
-
-
-
-
-
-        for (int i=0;i<freindsList.size();i++)
-        {
-
-             map=new HashMap<>();
-            map.put("Uid",freindsList.get(i).getUid());
-            map.put("Email",freindsList.get(i).getEmail());
-            map.put("Name",freindsList.get(i).getName());
-            map.put("PhotoUrl",freindsList.get(i).getPhotoUrl());
-            if (TextUtils.isEmpty(freindsList.get(i).getPhotoUrl()))
-                map.put("PhotoUrl"," ");
-            FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("TasksList").child(keyToPush).child("Friends").child(freindsList.get(i).getUid()).setValue(map);
-
-
-        }
-
-
-    }
-
 
 
     public void createNewTask(String TaskName,String ListID)
@@ -226,7 +152,6 @@ public class FirebaseManager {
         map.put("TaskID",keyToPush);
         map.put("Status",false);
         FirebaseDatabase.getInstance().getReference().child("TasksList").child(ListID).child(keyToPush).setValue(map);
-     //   FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).keepSynced(true);
 
     }
     public void ChangeTaskStatus(String TaskID,String ListID,Boolean Status)
@@ -251,7 +176,7 @@ public class FirebaseManager {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d("Sign in", "signInWithEmail:success");
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                  mUsersCallbacks.UpdateUiSignIn(user,"Succefful Sign in");
+                    mUsersCallbacks.UpdateUiSignIn(user,"Succefful Sign in");
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w("Sign in", "signInWithEmail:failure", task.getException());
@@ -263,12 +188,5 @@ public class FirebaseManager {
         });
 
     }
-
-
-
-
-
-
-
 
 }

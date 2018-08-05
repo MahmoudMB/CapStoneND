@@ -26,7 +26,7 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 
-public class Sharedtasks extends AppCompatActivity implements  TasksListsAdapter.ListItemClickListener{
+public class SharedTasks extends AppCompatActivity implements  TasksListsAdapter.ListItemClickListener{
     private RecyclerView recycleriew;
     TasksListsAdapter adapter;
     List<ToDo> ToDoLists;
@@ -108,7 +108,7 @@ adapter.notifyDataSetChanged();
     @Override
     public void onListItemClick(int clickedItemIndex)
     {
-        Intent i = new Intent(Sharedtasks.this,addtask.class);
+        Intent i = new Intent(SharedTasks.this,AddTask.class);
         i.putExtra(getResources().getString(R.string.MainScreen_TaskListIntent),ToDoLists.get(clickedItemIndex));
         startActivity(i);
     }

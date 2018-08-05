@@ -13,7 +13,7 @@ import com.example.android.mytasks.Models.Task;
 import com.example.android.mytasks.Models.ToDo;
 import com.example.android.mytasks.R;
 import com.example.android.mytasks.Utilis.FirebaseManager;
-import com.example.android.mytasks.addtask;
+import com.example.android.mytasks.AddTask;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -32,7 +32,7 @@ public class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.MyviewHolder> 
   //  final private TasksListsAdapter.ListItemClickListener mOnClickListener;
     List<Task> data = Collections.emptyList();
 
-ToDo todo;
+    ToDo todo;
 
     public TaskAdapter(Context context, List<Task> data,ToDo todo) {
         inflator =  LayoutInflater.from(context);

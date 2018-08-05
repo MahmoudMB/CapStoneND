@@ -65,22 +65,9 @@ public class PickMembers extends AppCompatActivity implements FriendsAdapter.Lis
         todo =(ToDo) getIntent().getSerializableExtra(getResources().getString(R.string.MainScreen_TaskListIntent));
 
 
+        LoadShared();
+        SharedFreinds();
 
-
-        //To Load All The Freinds User List
-      //  if (!FirebaseAuth.getInstance().getCurrentUser().getUid().toString().equals(todo.getOwnerUID()))
-            LoadShared();
-SharedFreinds();
-
-        //////////////////////
-
-        /*
-try{
-
-    Thread.sleep(100);
-}
-catch (Exception ex){}
-*/
 
 
         ////////// For List Of All Freinds
@@ -128,13 +115,8 @@ catch (Exception ex){}
                 AllFriends.remove(SharedWith.get(i));
         }
 
-
-
-
         adapterAllFriends.notifyDataSetChanged();
     }
-
-
 
 
     public void SharedFreinds(){
@@ -175,7 +157,7 @@ catch (Exception ex){}
 
                 holder.Status.setImageResource(R.drawable.ic_round_check_circle_24px);
                 if (!SharedWith.contains(user))
-                SharedWith.add(user);
+                    SharedWith.add(user);
                 if (SharedWith.isEmpty())
                     findViewById(R.id.TextView_NoSharedFreindsExists).setVisibility(View.VISIBLE);
                 else if (!SharedWith.isEmpty())
@@ -242,7 +224,6 @@ catch (Exception ex){}
     public void LoadShared()
     {
 
-
         FirebaseDatabase.getInstance()
                 .getReference()
                 .child(getResources().getString(R.string.TasksList_Node)).child(todo.getListID()).child(getResources().getString(R.string.Friends_Node)).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -271,99 +252,91 @@ catch (Exception ex){}
 
 
 
+    }
+
+    public void LoadAllFreinds(){
+
+        FirebaseDatabase.getInstance()
+                .getReference()
+                .child(getResources().getString(R.string.Users_Node)).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(getResources().getString(R.string.Friends_Node)).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
 
+                for(DataSnapshot data: dataSnapshot.getChildren()){
+                    String key=data.getKey();
+                    if  (!TextUtils.isEmpty(key)){
+                        User user = data.getValue(User.class);
+                        if (!SharedWith.contains(user))
+                            AllFriends.add(user);
+                    }
+
+
+
+
+                }
+
+                if (AllFriends.isEmpty()){
+                    findViewById(R.id.TextView_AllFreindsExists).setVisibility(View.VISIBLE);
+                    //  Log.v("All FreindsSize11",AllFriends.size()+" ");
+                }
+
+                else if (!AllFriends.isEmpty())
+                    findViewById(R.id.TextView_AllFreindsExists).setVisibility(View.GONE);
+                adapterAllFriends.notifyDataSetChanged();
+
+
+            }
+
+
+
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.w("FireBase Error", "loadPost:onCancelled", databaseError.toException());
+            }
+        });
 
 
 
     }
-
-public void LoadAllFreinds(){
-
-    FirebaseDatabase.getInstance()
-            .getReference()
-            .child(getResources().getString(R.string.Users_Node)).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(getResources().getString(R.string.Friends_Node)).addListenerForSingleValueEvent(new ValueEventListener() {
-        @Override
-        public void onDataChange(DataSnapshot dataSnapshot) {
-
-
-            for(DataSnapshot data: dataSnapshot.getChildren()){
-                String key=data.getKey();
-                if  (!TextUtils.isEmpty(key)){
-                    User user = data.getValue(User.class);
-                    if (!SharedWith.contains(user))
-                    AllFriends.add(user);
-                }
-
-
-
-
-            }
-
-            if (AllFriends.isEmpty()){
-                findViewById(R.id.TextView_AllFreindsExists).setVisibility(View.VISIBLE);
-                //  Log.v("All FreindsSize11",AllFriends.size()+" ");
-            }
-
-            else if (!AllFriends.isEmpty())
-                findViewById(R.id.TextView_AllFreindsExists).setVisibility(View.GONE);
-            adapterAllFriends.notifyDataSetChanged();
-
-
-        }
-
-
-
-
-        @Override
-        public void onCancelled(DatabaseError databaseError) {
-            Log.w("FireBase Error", "loadPost:onCancelled", databaseError.toException());
-        }
-    });
-
-
-
-}
     @Override
     public void onListItemClick(int i) {
 
 
-    Map<String, Object> map = new HashMap<>();
-    map.put("Uid", AllFriends.get(i).getUid());
-    map.put("Email", AllFriends.get(i).getEmail());
-    map.put("Name", AllFriends.get(i).getName());
-    map.put("PhotoUrl", AllFriends.get(i).getPhotoUrl());
-    if (TextUtils.isEmpty(AllFriends.get(i).getPhotoUrl()))
-        map.put("PhotoUrl", " ");
-    FirebaseDatabase.getInstance().getReference().child(getResources().getString(R.string.TasksList_Node)).child(todo.getListID()).child(getResources().getString(R.string.Friends_Node)).child(AllFriends.get(i).getUid()).setValue(map);
+        Map<String, Object> map = new HashMap<>();
+        map.put("Uid", AllFriends.get(i).getUid());
+        map.put("Email", AllFriends.get(i).getEmail());
+        map.put("Name", AllFriends.get(i).getName());
+        map.put("PhotoUrl", AllFriends.get(i).getPhotoUrl());
+        if (TextUtils.isEmpty(AllFriends.get(i).getPhotoUrl()))
+            map.put("PhotoUrl", " ");
+        FirebaseDatabase.getInstance().getReference().child(getResources().getString(R.string.TasksList_Node)).child(todo.getListID()).child(getResources().getString(R.string.Friends_Node)).child(AllFriends.get(i).getUid()).setValue(map);
 
 
-    Map<String, Object> mapList = new HashMap<>();
-    mapList.put("Name", todo.getName());
-    mapList.put("ListID", todo.getListID());
-    mapList.put("OwnerUID", FirebaseAuth.getInstance().getCurrentUser().getUid());
+        Map<String, Object> mapList = new HashMap<>();
+        mapList.put("Name", todo.getName());
+        mapList.put("ListID", todo.getListID());
+        mapList.put("OwnerUID", FirebaseAuth.getInstance().getCurrentUser().getUid());
 
 
-    FirebaseDatabase.getInstance().getReference().child(getResources().getString(R.string.Users_Node)).child(AllFriends.get(i).getUid()).child(getResources().getString(R.string.List_Node)).child(todo.getListID()).setValue(mapList);
+        FirebaseDatabase.getInstance().getReference().child(getResources().getString(R.string.Users_Node)).child(AllFriends.get(i).getUid()).child(getResources().getString(R.string.List_Node)).child(todo.getListID()).setValue(mapList);
 
 
-    AllFriends.remove(AllFriends.get(i));
+        AllFriends.remove(AllFriends.get(i));
 
-    adapterAllFriends.notifyDataSetChanged();
+        adapterAllFriends.notifyDataSetChanged();
 
 
-    if (AllFriends.isEmpty())
-        findViewById(R.id.TextView_AllFreindsExists).setVisibility(View.VISIBLE);
+        if (AllFriends.isEmpty())
+            findViewById(R.id.TextView_AllFreindsExists).setVisibility(View.VISIBLE);
 
-    else if (!AllFriends.isEmpty())
-        findViewById(R.id.TextView_AllFreindsExists).setVisibility(View.GONE);
+        else if (!AllFriends.isEmpty())
+            findViewById(R.id.TextView_AllFreindsExists).setVisibility(View.GONE);
 
 
 
     }
-
-
-
 
 
     @Override
@@ -383,7 +356,7 @@ public void LoadAllFreinds(){
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-       /* getMenuInflater().inflate(R.menu.toolbar_items_pickfriends, menu);*/
+        /* getMenuInflater().inflate(R.menu.toolbar_items_pickfriends, menu);*/
         return true;
     }
 

@@ -36,13 +36,12 @@ import java.util.List;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class Mainscreen extends AppCompatActivity implements TasksListsAdapter.ListItemClickListener, NavigationView.OnNavigationItemSelectedListener {
+public class MainScreen extends AppCompatActivity implements TasksListsAdapter.ListItemClickListener, NavigationView.OnNavigationItemSelectedListener {
     private RecyclerView recycleriew;
     TasksListsAdapter adapter;
     List<ToDo> ToDoLists;
 
 
-          private String LastLoadedTask="";
     private DrawerLayout mdrwerlayout;
     private ActionBarDrawerToggle mtoggle;
     NavigationView navigationView;
@@ -60,125 +59,116 @@ public class Mainscreen extends AppCompatActivity implements TasksListsAdapter.L
                 .getReference()
                 .child(getResources().getString(R.string.Users_Node)).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(getResources().getString(R.string.List_Node));
 
-       if (FirebaseAuth.getInstance().getCurrentUser()!=null) {
-           ButterKnife.bind(this);
-           Log.v("OnCreate", "MainScreen");
-           ToDoLists = new ArrayList<>();
+        if (FirebaseAuth.getInstance().getCurrentUser()!=null) {
+            ButterKnife.bind(this);
+            ToDoLists = new ArrayList<>();
 
-           recycleriew = (RecyclerView) findViewById(R.id.Tasks_List_Recycler);
-           if (savedInstanceState != null) {
-
-
-               ToDoLists = (ArrayList<ToDo>) savedInstanceState.getSerializable(getResources().getString(R.string.MainScreen_ToDoLists));
+            recycleriew = (RecyclerView) findViewById(R.id.Tasks_List_Recycler);
+            if (savedInstanceState != null) {
 
 
-               adapter = new TasksListsAdapter(getApplicationContext(), ToDoLists, this);
-               LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-               layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-               recycleriew.setLayoutManager(layoutManager);
-               recycleriew.setAdapter(adapter);
-               findViewById(R.id.MainScreen_NoLists).setVisibility(View.GONE);
-           }
-           else {
-
-               ToDoLists = new ArrayList<>();
-
-               adapter = new TasksListsAdapter(getApplicationContext(), ToDoLists, this);
-               LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-               layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-               recycleriew.setLayoutManager(layoutManager);
-               recycleriew.setAdapter(adapter);
-
-           }
-
-           lis = new ChildEventListener() {
-               @Override
-               public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                   findViewById(R.id.MainScreen_NoLists).setVisibility(View.GONE);
-                   if (!ToDoLists.contains(dataSnapshot.getValue(ToDo.class)) && ((dataSnapshot.getValue(ToDo.class)).getOwnerUID().equals(FirebaseAuth.getInstance().getCurrentUser().getUid()))) {
-                       ToDoLists.add(dataSnapshot.getValue(ToDo.class));
-                       adapter.notifyDataSetChanged();
-                   }
-               }
-
-               @Override
-               public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-               }
-
-               @Override
-               public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-               }
-
-               @Override
-               public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-               }
-
-               @Override
-               public void onCancelled(DatabaseError databaseError) {
-
-               }
-           };
+                ToDoLists = (ArrayList<ToDo>) savedInstanceState.getSerializable(getResources().getString(R.string.MainScreen_ToDoLists));
 
 
+                adapter = new TasksListsAdapter(getApplicationContext(), ToDoLists, this);
+                LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+                layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                recycleriew.setLayoutManager(layoutManager);
+                recycleriew.setAdapter(adapter);
+                findViewById(R.id.MainScreen_NoLists).setVisibility(View.GONE);
+            }
+            else {
 
-           Toolbar mtoolbar = (Toolbar) findViewById(R.id.toolbar);
-           mtoolbar.setTitle(getResources().getString(R.string.app_name));
-           setSupportActionBar(mtoolbar);
+                ToDoLists = new ArrayList<>();
+
+                adapter = new TasksListsAdapter(getApplicationContext(), ToDoLists, this);
+                LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+                layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                recycleriew.setLayoutManager(layoutManager);
+                recycleriew.setAdapter(adapter);
+
+            }
+
+            lis = new ChildEventListener() {
+                @Override
+                public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                    findViewById(R.id.MainScreen_NoLists).setVisibility(View.GONE);
+                    if (!ToDoLists.contains(dataSnapshot.getValue(ToDo.class)) && ((dataSnapshot.getValue(ToDo.class)).getOwnerUID().equals(FirebaseAuth.getInstance().getCurrentUser().getUid()))) {
+                        ToDoLists.add(dataSnapshot.getValue(ToDo.class));
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+
+                @Override
+                public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+                }
+
+                @Override
+                public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            };
 
 
-           navigationView = (NavigationView) findViewById(R.id.nav);
 
-           navigationView.setNavigationItemSelectedListener(this);
+            Toolbar mtoolbar = (Toolbar) findViewById(R.id.toolbar);
+            mtoolbar.setTitle(getResources().getString(R.string.app_name));
+            setSupportActionBar(mtoolbar);
+
+
+            navigationView = (NavigationView) findViewById(R.id.nav);
+
+            navigationView.setNavigationItemSelectedListener(this);
 ////Header
 //////////////
-           View header = navigationView.getHeaderView(0);
-           /*View view=navigationView.inflateHeaderView(R.layout.nav_header_main);*/
+            View header = navigationView.getHeaderView(0);
 
 
-           TextView name = (TextView) header.findViewById(R.id.Header_Name);
-           ImageView photo = (ImageView) header.findViewById(R.id.Header_profile_img);
+            TextView name = (TextView) header.findViewById(R.id.Header_Name);
+            ImageView photo = (ImageView) header.findViewById(R.id.Header_profile_img);
 
 
-           name.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
-           if (FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl() != null) {
-               photo.setImageURI(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl());
-           }
+            name.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+            if (FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl() != null) {
+                photo.setImageURI(FirebaseAuth.getInstance().getCurrentUser().getPhotoUrl());
+            }
 
 
-           mdrwerlayout = (DrawerLayout) findViewById(R.id.MainScreen_drawer);
-           mtoggle = new ActionBarDrawerToggle(this, mdrwerlayout, R.string.open, R.string.close);
+            mdrwerlayout = (DrawerLayout) findViewById(R.id.MainScreen_drawer);
+            mtoggle = new ActionBarDrawerToggle(this, mdrwerlayout, R.string.open, R.string.close);
 
 
-           mdrwerlayout.addDrawerListener(mtoggle);
-           mtoggle.syncState();
+            mdrwerlayout.addDrawerListener(mtoggle);
+            mtoggle.syncState();
 
 
-           getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-       }
-       else{
-           Intent i = new Intent(Mainscreen.this,signinActivity.class);
-           startActivity(i);
-           finish();
+        }
+        else{
+            Intent i = new Intent(MainScreen.this,SigninActivity.class);
+            startActivity(i);
+            finish();
 
-       }
+        }
 
     }
 
 
 
-/*
 
-    @OnClick(R.id.mainScreen_fab) void addNewList() {
-        AddNewTaskList();
-    }
-
-
-  */
 
 
     @Override
@@ -202,7 +192,7 @@ public class Mainscreen extends AppCompatActivity implements TasksListsAdapter.L
     protected void onResume() {
         super.onResume();
 
-        }
+    }
 
 
     @Override
@@ -214,7 +204,7 @@ public class Mainscreen extends AppCompatActivity implements TasksListsAdapter.L
 
     @OnClick(R.id.mainScreen_fab) void addNewList() {
 
-        Intent i  = new Intent(Mainscreen.this,addnewlist.class);
+        Intent i  = new Intent(MainScreen.this,AddNewList.class);
         startActivity(i);
     }
 
@@ -247,7 +237,7 @@ public class Mainscreen extends AppCompatActivity implements TasksListsAdapter.L
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_Freind) {
 
-            Intent i = new Intent(Mainscreen.this,addfreinds.class);
+            Intent i = new Intent(MainScreen.this,AddFriends.class);
             startActivity(i);
             //return true;
         }
@@ -260,8 +250,8 @@ public class Mainscreen extends AppCompatActivity implements TasksListsAdapter.L
 
         if (item.getItemId() == R.id.action_logout) {
             FirebaseAuth.getInstance().signOut();
-           finish();
-           //return true;
+            finish();
+            //return true;
         }
 
 
@@ -278,21 +268,21 @@ public class Mainscreen extends AppCompatActivity implements TasksListsAdapter.L
 
         if (item.getItemId() == R.id.Friends_drawer) {
 
-            Intent i = new Intent(Mainscreen.this,addfreinds.class);
+            Intent i = new Intent(MainScreen.this,AddFriends.class);
             startActivity(i);
             //return true;
         }
 
         if (item.getItemId() == R.id.LogOut_drawer) {
-      //      query.removeEventListener(lis);
-           FirebaseAuth.getInstance().signOut();
-           finish();
+            //      query.removeEventListener(lis);
+            FirebaseAuth.getInstance().signOut();
+            finish();
             //return true;
         }
 
         if (item.getItemId() == R.id.SharedLists_drawer) {
 
-            Intent i = new Intent(Mainscreen.this,Sharedtasks.class);
+            Intent i = new Intent(MainScreen.this,SharedTasks.class);
             startActivity(i);
             //return true;
         }
@@ -314,8 +304,9 @@ public class Mainscreen extends AppCompatActivity implements TasksListsAdapter.L
     @Override
     public void onListItemClick(int clickedItemIndex) {
 
-        Intent i = new Intent(Mainscreen.this,addtask.class);
+        Intent i = new Intent(MainScreen.this,AddTask.class);
         i.putExtra(getResources().getString(R.string.MainScreen_TaskListIntent),ToDoLists.get(clickedItemIndex));
         startActivity(i);
     }
+
 }

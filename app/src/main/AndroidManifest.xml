@@ -16,21 +16,21 @@ android:name=".MyFirebaseApp"
         android:supportsRtl="true"
         android:theme="@style/AppTheme1">
         <activity android:name=".MainActivity" />
-        <activity android:name=".signupActivity" />
-        <activity android:name=".signinActivity">
+        <activity android:name=".SignupActivity" />
+        <activity android:name=".SigninActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Mainscreen" android:parentActivityName=".signinActivity" />
-        <activity android:name=".addnewlist" />
+        <activity android:name=".MainScreen" />
+        <activity android:name=".AddNewList" />
 
         <activity android:name=".PickMembers" />
-        <activity android:name=".addtask" />
-        <activity android:name=".addfreinds" />
-        <activity android:name=".Sharedtasks" />
+        <activity android:name=".AddTask" />
+        <activity android:name=".AddFriends" />
+        <activity android:name=".SharedTasks" />
 
         <receiver android:name=".TasksWidgetProvider">
             <intent-filter>

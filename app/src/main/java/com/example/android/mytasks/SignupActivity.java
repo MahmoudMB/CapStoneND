@@ -19,7 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class signupActivity extends AppCompatActivity implements UserLogin {
+public class SignupActivity extends AppCompatActivity implements UserLogin {
 
 
 
@@ -105,19 +105,19 @@ public class signupActivity extends AppCompatActivity implements UserLogin {
         if (status)
         {
 
-            Intent i = new Intent(signupActivity.this,Mainscreen.class);
+            Intent i = new Intent(SignupActivity.this,MainScreen.class);
             startActivity(i);
             finish();
         }
 
-else if (!status)
+        else if (!status)
 
-{
-    findViewById(R.id.prograss_SignUp).setVisibility(View.GONE);
-    findViewById(R.id.SignUp_SignUp_Button).setVisibility(View.VISIBLE);
-    Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), Msg, Snackbar.LENGTH_LONG);
-    snackbar.show();
-}
+        {
+            findViewById(R.id.prograss_SignUp).setVisibility(View.GONE);
+            findViewById(R.id.SignUp_SignUp_Button).setVisibility(View.VISIBLE);
+            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), Msg, Snackbar.LENGTH_LONG);
+            snackbar.show();
+        }
 
 
     }
@@ -126,7 +126,5 @@ else if (!status)
     public void UpdateUiSignIn(FirebaseUser user,String Msg) {
 
     }
-
-
 
 }

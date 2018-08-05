@@ -97,4 +97,27 @@ public class Task implements Serializable {
     public void setStatus(boolean status) {
         Status = status;
     }
+
+
+
+    @Override
+    public boolean equals(Object obj){
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Task other = (Task) obj;
+        if (this.Name != other.Name && (this.Name == null || !this.Name.equals(other.Name))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        return Name.hashCode();
+    }
+
 }

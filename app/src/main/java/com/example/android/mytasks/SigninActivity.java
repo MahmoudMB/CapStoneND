@@ -22,7 +22,7 @@ import butterknife.OnClick;
 
 
 
-public class signinActivity extends AppCompatActivity implements View.OnClickListener,UserLogin {
+public class SigninActivity extends AppCompatActivity implements View.OnClickListener,UserLogin {
 
     private FirebaseAuth mFireBaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
@@ -37,7 +37,6 @@ public class signinActivity extends AppCompatActivity implements View.OnClickLis
         setContentView(R.layout.activity_signin);
 
         ButterKnife.bind(this);
-Log.v("On Create","Sign in");
         mFireBaseAuth = FirebaseAuth.getInstance();
 
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
@@ -48,9 +47,7 @@ Log.v("On Create","Sign in");
 
                 if (user!=null)
                 {
-
-                    Log.v("mAuthStateListener","!null");
-                    Intent i = new Intent(signinActivity.this,Mainscreen.class);
+                    Intent i = new Intent(SigninActivity.this,MainScreen.class);
                     startActivity(i);
 
                 }
@@ -89,26 +86,26 @@ Log.v("On Create","Sign in");
     @OnClick(R.id.Login_signin) void SignInBtn() {
 
 
-       if (!EmailText.getText().toString().isEmpty() && !PasswordText.getText().toString().isEmpty())
-       {
-           findViewById(R.id.prograss_SignIn).setVisibility(View.VISIBLE);
-           findViewById(R.id.Login_signin).setVisibility(View.GONE);
+        if (!EmailText.getText().toString().isEmpty() && !PasswordText.getText().toString().isEmpty())
+        {
+            findViewById(R.id.prograss_SignIn).setVisibility(View.VISIBLE);
+            findViewById(R.id.Login_signin).setVisibility(View.GONE);
 
 
-           SignIn(EmailText.getText().toString(),PasswordText.getText().toString());
+            SignIn(EmailText.getText().toString(),PasswordText.getText().toString());
 
-       }
-       else
-       {
-           Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Enter The Email And Password", Snackbar.LENGTH_LONG);
-           snackbar.show();
-       }
+        }
+        else
+        {
+            Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), "Enter The Email And Password", Snackbar.LENGTH_LONG);
+            snackbar.show();
+        }
     }
 
 
 
     @OnClick(R.id.Login_Rigister) void Rigister(){
-        Intent i = new Intent(signinActivity.this,signupActivity.class);
+        Intent i = new Intent(SigninActivity.this,SignupActivity.class);
         startActivity(i);
     }
 
@@ -134,14 +131,10 @@ Log.v("On Create","Sign in");
         {
             findViewById(R.id.prograss_SignIn).setVisibility(View.GONE);
 
-            Intent i = new Intent(signinActivity.this,Mainscreen.class);
+            Intent i = new Intent(SigninActivity.this,MainScreen.class);
             startActivity(i);
             finish();
 
-
-            Log.v("LoginPresenter","True");
-
-            Log.v("LoginPresenter",user.getEmail());
         }
         else
         {

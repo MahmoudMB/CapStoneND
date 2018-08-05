@@ -25,13 +25,7 @@ import java.util.List;
  */
 public class TasksWidgetProvider extends AppWidgetProvider {
 
-    public static final String Widget_Action = "WidgetAction";;
-    public static final String Widget_Update = "android.appwidget.action.APPWIDGET_UPDATE";;
 
-    public static final String Extra_TaskName = "TaskName";
-    public static final String Extra_TaskStatus = "TaskStatus";
-    public static final String Extra_TaskID = "TaskID";
-    public static final String Extra_ListID = "ListID";
 
     public  static ArrayList<String> TaskName1 = new ArrayList<>();
     public  static boolean[] TaskStatus1;
@@ -45,8 +39,6 @@ public class TasksWidgetProvider extends AppWidgetProvider {
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId,ArrayList<String>  TaskName,boolean[] TaskStatus,ArrayList<String> TaskID,String ListId,String ListName) {
 
-
-        Log.v("Provider","updateAppWidget1");
         RemoteViews views = getListRemoteView(context);
 
         TaskStatus1 = TaskStatus;
@@ -54,9 +46,6 @@ public class TasksWidgetProvider extends AppWidgetProvider {
         ListID1 = ListId;
         ListName1 = ListName;
         TaskID1 = TaskID;
-
-        Log.v("ListName",ListName+" ");
-        Log.v("ListName1",ListName1+" ");
 
         // Instruct the widget manager to update the widget
         appWidgetManager.updateAppWidget(appWidgetId, views);
@@ -68,16 +57,16 @@ public class TasksWidgetProvider extends AppWidgetProvider {
 
 
     private static RemoteViews getListRemoteView(Context context)
-    {   Log.v("RemoteViews","RemoteViews ");
+    {
 
         RemoteViews views =new RemoteViews(context.getPackageName(),R.layout.tasks_widget_provider);
         Intent Rintent = new Intent(context,ListWidgetService.class);
 
 
 
-      Intent appIntent = new Intent(context,UpdateTaskService.class);
-      PendingIntent appPendingIntent = PendingIntent.getService(context,0,appIntent,PendingIntent.FLAG_UPDATE_CURRENT);
-      views.setPendingIntentTemplate(R.id.ListViewTasksWidget,appPendingIntent);
+        Intent appIntent = new Intent(context,UpdateTaskService.class);
+        PendingIntent appPendingIntent = PendingIntent.getService(context,0,appIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+        views.setPendingIntentTemplate(R.id.ListViewTasksWidget,appPendingIntent);
 
 
         views.setRemoteAdapter(R.id.ListViewTasksWidget ,Rintent);
@@ -92,18 +81,16 @@ public class TasksWidgetProvider extends AppWidgetProvider {
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
-        Log.v("On Update111","Called");
-        Log.v("UpdateListID111",ListID1+" ");
+
         for (int appWidgetId : appWidgetIds) {
-          //  updateAppWidget(context, appWidgetManager, appWidgetId);
-            Log.v("On Update","Called");
-            Log.v("UpdateListID",ListID1+" ");
-
-        }
-
+            //  updateAppWidget(context, appWidgetManager, appWidgetId);
 
 
         }
+
+
+
+    }
 
 
     public static void UpdateWidgets(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds,ArrayList<String>  TaskName,boolean[] TaskStatus,ArrayList<String> TaskID,String ListId,String ListName) {

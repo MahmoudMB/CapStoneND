@@ -39,14 +39,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class addfreinds extends AppCompatActivity {
+public class AddFriends extends AppCompatActivity {
 
 
     @BindView(R.id.SearchFriend_EditText)
     EditText SearchFriend_EditText;
-
-
-
 
     @BindView(R.id.AddFreind_FriendImage)
     CircleImageView AddFreind_FriendImage;
@@ -122,10 +119,10 @@ public class addfreinds extends AppCompatActivity {
                 holder.Name.setText(model.getName());
                 holder.Email.setText(model.getEmail());
                 if (!TextUtils.isEmpty(model.getPhotoUrl()))
-                holder.Photo.setImageURI(Uri.parse(model.getPhotoUrl()));
+                    holder.Photo.setImageURI(Uri.parse(model.getPhotoUrl()));
 
 
-            holder.Status.setVisibility(View.GONE);
+                holder.Status.setVisibility(View.GONE);
 
             }
         };
@@ -134,19 +131,6 @@ public class addfreinds extends AppCompatActivity {
         recycleriew = (RecyclerView)findViewById(R.id.AddFreindsRecycler);
         recycleriew.setAdapter(adapter);
         recycleriew.setLayoutManager(new LinearLayoutManager(this));
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -174,32 +158,18 @@ public class addfreinds extends AppCompatActivity {
             }
         });
 
-
-
-
-
-
-
     }
-
-
-
-
-
-
 
     @OnClick(R.id.AddFreinds_Add) void AddFreinds_Add() {
 
-      String Email =   ((TextView) findViewById(R.id.AddFreind_FriendEmail)).getText().toString();
-Add(Email);
+        String Email =   ((TextView) findViewById(R.id.AddFreind_FriendEmail)).getText().toString();
+        Add(Email);
 
         findViewById(R.id.UserInformation).setVisibility(View.GONE);
         EditText searchText = findViewById(R.id.SearchFriend_EditText);
         searchText.getText().clear();
 
     }
-
-
 
 
     @OnClick(R.id.AddFreinds_Search) void AddFreinds_Search() {
@@ -221,23 +191,17 @@ Add(Email);
     }
 
 
-
-
-
     public void SearchForEmail()
     {
 
         EditText searchText = findViewById(R.id.SearchFriend_EditText);
-        String Email = searchText.getText().toString();
+        String Email = searchText.getText().toString().trim();
 
         FirebaseDatabase.getInstance()
                 .getReference()
                 .child("Users").orderByChild("Email").equalTo(Email).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-
-
-
 
                 if(!dataSnapshot.exists())
                 {
@@ -256,30 +220,18 @@ Add(Email);
                         if (!TextUtils.isEmpty(key)) {
 
                             User user = data.getValue(User.class);
-
-                            Log.v("Email", user.getEmail() + " ");
-
-
                             findViewById(R.id.UserInformation).setVisibility(View.VISIBLE);
 
 
                             AddFreind_FriendEmail.setText(user.getEmail());
                             AddFreind_FriendName.setText(user.getName());
                             if (user.getPhotoUrl()!=null)
-                            AddFreind_FriendImage.setImageURI(Uri.parse(user.getPhotoUrl()));
+                                AddFreind_FriendImage.setImageURI(Uri.parse(user.getPhotoUrl()));
                         }
-
                     }
-
-
 
                 }
 
-
-
-
-
-                String Key =  dataSnapshot.getKey();
 
             }
 
@@ -346,17 +298,17 @@ Add(Email);
 
 
 
-public void AddNewFriendToUser(User user)
-{
-    Map<String,Object> map=new HashMap<>();
-    map.put("Uid",user.getUid());
-    map.put("Email",user.getEmail());
-    map.put("Name",user.getName());
-    map.put("PhotoUrl",user.getPhotoUrl());
-if (TextUtils.isEmpty(user.getPhotoUrl()))
-    map.put("PhotoUrl"," ");
-    FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Friends").child(user.getUid()).setValue(map);
-}
+    public void AddNewFriendToUser(User user)
+    {
+        Map<String,Object> map=new HashMap<>();
+        map.put("Uid",user.getUid());
+        map.put("Email",user.getEmail());
+        map.put("Name",user.getName());
+        map.put("PhotoUrl",user.getPhotoUrl());
+        if (TextUtils.isEmpty(user.getPhotoUrl()))
+            map.put("PhotoUrl"," ");
+        FirebaseDatabase.getInstance().getReference().child("Users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("Friends").child(user.getUid()).setValue(map);
+    }
 
 
 
@@ -367,7 +319,7 @@ if (TextUtils.isEmpty(user.getPhotoUrl()))
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-    //    getMenuInflater().inflate(R.menu.toolbar_items_addfreinds, menu);
+        //    getMenuInflater().inflate(R.menu.toolbar_items_addfreinds, menu);
         return true;
     }
 

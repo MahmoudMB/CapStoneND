@@ -26,6 +26,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +36,7 @@ import java.util.Map;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class addnewlist extends AppCompatActivity implements FirebaseCallBacks {
+public class AddNewList extends AppCompatActivity implements FirebaseCallBacks {
 
 
     private RecyclerView recycleriew;
@@ -61,12 +63,6 @@ public class addnewlist extends AppCompatActivity implements FirebaseCallBacks {
                         .setQuery(query, User.class)
                         .build();
 
-
-
-
-
-
-
         adapter = new FirebaseRecyclerAdapter<User, UserHolder>(options) {
             @Override
             public UserHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -86,7 +82,6 @@ public class addnewlist extends AppCompatActivity implements FirebaseCallBacks {
                 holder.Email.setText(model.getEmail());
                 if (!TextUtils.isEmpty(model.getPhotoUrl()))
                     holder.Photo.setImageURI(Uri.parse(model.getPhotoUrl()));
-
 
 
                 if (freindsList.contains(user)){
@@ -149,9 +144,6 @@ public class addnewlist extends AppCompatActivity implements FirebaseCallBacks {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-
-
-
     }
 
 
@@ -171,15 +163,17 @@ public class addnewlist extends AppCompatActivity implements FirebaseCallBacks {
 
     @OnClick(R.id.addNewList_CreateList) void addNewList() {
 
-        if (!((AppCompatEditText)findViewById(R.id.addNewList_ListNameEditText)).getText().toString().isEmpty())
+
+        String listName = ((AppCompatEditText)findViewById(R.id.addNewList_ListNameEditText)).getText().toString().trim();
+        if (!TextUtils.isEmpty(listName))
         {
-        AddNewTaskList();
-        finish();}
+            AddNewTaskList();
+            finish();}
         else
         {
 
             Snackbar snackbar = Snackbar.make(findViewById(android.R.id.content), getResources().getString(R.string.AddNewList__Msg1), Snackbar.LENGTH_LONG);
-                snackbar.show();
+            snackbar.show();
 
         }
 
@@ -187,21 +181,9 @@ public class addnewlist extends AppCompatActivity implements FirebaseCallBacks {
     }
 
 
-
-    /*
-    @OnClick(R.id.addNewList_AddMember) void PickFriends() {
-        Intent i = new Intent(addnewlist.this,pickfriends.class);
-        startActivity(i);
-
-    }
-
-*/
-
-
-
     @Override
     protected void onStart() {
-      super.onStart();
+        super.onStart();
         adapter.startListening();
     }
 
@@ -217,9 +199,5 @@ public class addnewlist extends AppCompatActivity implements FirebaseCallBacks {
         String t = ((AppCompatEditText)findViewById(R.id.addNewList_ListNameEditText)).getText().toString();
         FirebaseManager.getInstance(this).createNewList1(t,freindsList);
     }
-
-
-
-
 
 }

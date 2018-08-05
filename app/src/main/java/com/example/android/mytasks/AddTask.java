@@ -2,6 +2,8 @@ package com.example.android.mytasks;
 
 import android.content.Intent;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -20,8 +22,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.example.android.mytasks.Adapters.TaskAdapter;
 import com.example.android.mytasks.Interfaces.FirebaseCallBacks;
 import com.example.android.mytasks.Models.Task;
 import com.example.android.mytasks.Models.ToDo;
@@ -30,12 +34,14 @@ import com.example.android.mytasks.Widget.UpdateTaskService;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,17 +49,31 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class addtask extends AppCompatActivity  implements FirebaseCallBacks {
+public class AddTask extends AppCompatActivity  implements FirebaseCallBacks {
     private RecyclerView recycleriew;
     private RecyclerView RecyclerCompletedTasks;
-    FirebaseRecyclerAdapter NotCompletedAdapter;
-    FirebaseRecyclerAdapter CompletedAdapter;
-    List<Task> Tasks;
+    TaskAdapter NotCompletedAdapter;
+    TaskAdapter CompletedAdapter;
+    ArrayList<Task> notCompletedTasks = new ArrayList<>();
+    ArrayList<Task> completedTasks = new ArrayList<>();
+    ChildEventListener notCompletedChildLis;
+    ChildEventListener completedChildLis;
     ToDo todo;
-
+    Query queryNotCompleted;
+    Query queryCompleted;
     private static final String RECYCLER_LAYOUT1 = "RECYCLERLAYOUT1";
     private static final String RECYCLER_LAYOUT2 = "RECYCLERLAYOUT2";
+    private static final String mPosition = "Position";
+    private static final String ListCompletedTasks = "ListCompletedTasks";
+    private static final String ListNotCompletedTasks = "ListNotCompletedTasks";
 
+
+    private static final String mShowCompletedVisible = "ShowCompletedVisible";
+    private static final String mShowCompletedNotVisible = "ShowCompletedNotVisible";
+
+    private static final String mCompletedVisibiltiy = "CompletedVisibiltiy";
+
+    private ScrollView mScrollView;
     @BindView(R.id.addTask_AddNewTaskEditText)
     EditText AddNewTaskEditText;
 
@@ -73,7 +93,7 @@ public class addtask extends AppCompatActivity  implements FirebaseCallBacks {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_addtask);
         ButterKnife.bind(this);
-        todo =(ToDo) getIntent().getSerializableExtra(getResources().getString(R.string.MainScreen_TaskListIntent));
+        todo = (ToDo) getIntent().getSerializableExtra(getResources().getString(R.string.MainScreen_TaskListIntent));
         Toolbar mtoolbar = (Toolbar) findViewById(R.id.toolbar);
         mtoolbar.setTitle(todo.getName());
         setSupportActionBar(mtoolbar);
@@ -82,156 +102,113 @@ public class addtask extends AppCompatActivity  implements FirebaseCallBacks {
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
 
+        if (savedInstanceState!=null)
+        {
+            completedTasks = (ArrayList<Task>) savedInstanceState.getSerializable(ListCompletedTasks);
+            notCompletedTasks = (ArrayList<Task>) savedInstanceState.getSerializable(ListNotCompletedTasks);
+        }
 
-
-        Query query = FirebaseDatabase.getInstance()
+        queryNotCompleted = FirebaseDatabase.getInstance()
                 .getReference()
                 .child(getResources().getString(R.string.TasksList_Node)).child(todo.getListID()).orderByChild(getResources().getString(R.string.Status_Node)).equalTo(false);
 
-        FirebaseRecyclerOptions<Task> options =
-                new FirebaseRecyclerOptions.Builder<Task>()
-                        .setQuery(query, Task.class)
-                        .build();
 
-
-
-
-
-
-        NotCompletedAdapter = new FirebaseRecyclerAdapter<Task, TaskHolder>(options) {
+        notCompletedChildLis = new ChildEventListener() {
             @Override
-            public TaskHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                // Create a new instance of the ViewHolder, in this case we are using a custom
-                // layout called R.layout.message for each item
-                View view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.tasks_items, parent, false);
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Task e = dataSnapshot.getValue(Task.class);
+                if (!notCompletedTasks.contains(e))
+                notCompletedTasks.add(e);
+                NotCompletedAdapter.notifyDataSetChanged();
+                Log.v("Add NotComplted", e.getName() + " ");
 
-                return new TaskHolder(view);
             }
 
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
 
+            }
 
             @Override
-            protected void onBindViewHolder(TaskHolder holder, int position, final Task model) {
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                Task e = dataSnapshot.getValue(Task.class);
+                notCompletedTasks.remove(e);
+                NotCompletedAdapter.notifyDataSetChanged();
 
-                if (model.getTaskID()!=null){
+                Log.v("Removed Not Complted", e.getName() + " ");
 
-                    final Task Task = model;
-                    holder.TaskName.setText(model.getName());
+            }
 
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
-                    if (model.isStatus())
-                        holder.Status.setImageResource(R.drawable.ic_round_check_circle_24px);
-                    else if (!model.isStatus())
-                        holder.Status.setImageResource(R.drawable.ic_round_check_circle_outline_24px);
-
-
-
-                    holder.itemView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            if (model.isStatus())
-                                FirebaseManager.getInstance(addtask.this).ChangeTaskStatus(model.getTaskID(),todo.getListID(),false);
-                            else   if (!model.isStatus())
-                                FirebaseManager.getInstance(addtask.this).ChangeTaskStatus(model.getTaskID(),todo.getListID(),true);
-
-                        }
-                    });
-                }}
+            }
         };
 
 
+        completedChildLis = new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                Task e = dataSnapshot.getValue(Task.class);
+                if (!completedTasks.contains(e))
+                completedTasks.add(e);
+                CompletedAdapter.notifyDataSetChanged();
+
+                Log.v("Add Complted", e.getName() + " ");
+
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+                Task e = dataSnapshot.getValue(Task.class);
+                completedTasks.remove(e);
+                CompletedAdapter.notifyDataSetChanged();
+
+                Log.v("Removed Complted", e.getName() + " ");
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        };
 
 
+        NotCompletedAdapter = new TaskAdapter(this, notCompletedTasks, todo);
+
+        CompletedAdapter = new TaskAdapter(this, completedTasks, todo);
 
 
-        recycleriew = (RecyclerView)findViewById(R.id.AddTask_Recycler);
+        recycleriew = (RecyclerView) findViewById(R.id.AddTask_Recycler);
         recycleriew.setAdapter(NotCompletedAdapter);
-        recycleriew.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recycleriew.setLayoutManager(layoutManager);
 
 
-
-
-
-
-
-
-
-
-
-        query = FirebaseDatabase.getInstance()
+        queryCompleted = FirebaseDatabase.getInstance()
                 .getReference()
                 .child(getResources().getString(R.string.TasksList_Node)).child(todo.getListID()).orderByChild(getResources().getString(R.string.Status_Node)).equalTo(true);
 
-        options =
-                new FirebaseRecyclerOptions.Builder<Task>()
-                        .setQuery(query, Task.class)
-                        .build();
 
-
-
-
-        CompletedAdapter = new FirebaseRecyclerAdapter<Task, TaskHolder>(options) {
-            @Override
-            public TaskHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-                // Create a new instance of the ViewHolder, in this case we are using a custom
-                // layout called R.layout.message for each item
-                View view = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.tasks_items, parent, false);
-
-                return new TaskHolder(view);
-            }
-
-
-
-            @Override
-            protected void onBindViewHolder(TaskHolder holder, int position, final Task model) {
-
-                if (model.getTaskID()!=null){
-
-                    final Task Task = model;
-                    holder.TaskName.setText(model.getName());
-
-
-
-                    if (model.isStatus())
-                        holder.Status.setImageResource(R.drawable.ic_round_check_circle_24px);
-                    else if (!model.isStatus())
-                        holder.Status.setImageResource(R.drawable.ic_round_check_circle_outline_24px);
-
-
-
-                    holder.itemView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            if (model.isStatus())
-                                FirebaseManager.getInstance(addtask.this).ChangeTaskStatus(model.getTaskID(),todo.getListID(),false);
-                            else   if (!model.isStatus())
-                                FirebaseManager.getInstance(addtask.this).ChangeTaskStatus(model.getTaskID(),todo.getListID(),true);
-
-                        }
-                    });
-                }}
-        };
-
-
-
-
-
-        RecyclerCompletedTasks = (RecyclerView)findViewById(R.id.AddTask_RecyclerCompletedTasks);
+        RecyclerCompletedTasks = (RecyclerView) findViewById(R.id.AddTask_RecyclerCompletedTasks);
         RecyclerCompletedTasks.setAdapter(CompletedAdapter);
         RecyclerCompletedTasks.setLayoutManager(new LinearLayoutManager(this));
 
-
-
-
-
-
-
-
-
-
+        mScrollView = findViewById(R.id.AddTask_ScrollView);
         AddNewTaskEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -257,28 +234,21 @@ public class addtask extends AppCompatActivity  implements FirebaseCallBacks {
         });
 
 
-
-
-
-
-
         ShowComplated.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
 
-                if (RecyclerCompletedTasks.getVisibility()==View.VISIBLE) {
+                if (RecyclerCompletedTasks.getVisibility() == View.VISIBLE) {
                     RecyclerCompletedTasks.setVisibility(View.GONE);
                     ShowComplated.setText(getResources().getString(R.string.ShowCompleted_addtask));
-                }
-                else if(RecyclerCompletedTasks.getVisibility()==View.GONE) {
+                } else if (RecyclerCompletedTasks.getVisibility() == View.GONE) {
                     RecyclerCompletedTasks.setVisibility(View.VISIBLE);
                     ShowComplated.setText(getResources().getString(R.string.HideCompleted_addtask));
                 }
 
             }
         });
-
 
 
 
@@ -326,11 +296,6 @@ public class addtask extends AppCompatActivity  implements FirebaseCallBacks {
 
 
 
-
-
-
-
-
     @OnClick(R.id.addTask_fab) void addTask() {
 
         AddNewTask();
@@ -344,8 +309,9 @@ public class addtask extends AppCompatActivity  implements FirebaseCallBacks {
     {
         String t = ((EditText)findViewById(R.id.addTask_AddNewTaskEditText)).getText().toString();
 
-       if (!TextUtils.isEmpty(t)) {
+       if (!TextUtils.isEmpty(t.trim())) {
            FirebaseManager.getInstance(this).createNewTask(t, todo.getListID());
+
        }
        else
            {
@@ -356,27 +322,21 @@ public class addtask extends AppCompatActivity  implements FirebaseCallBacks {
        }
 
 
-
-
-
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        queryNotCompleted.removeEventListener(notCompletedChildLis);
+queryCompleted.removeEventListener(completedChildLis);
+    }
 
 
     @Override
     protected void onStart() {
         super.onStart();
-        NotCompletedAdapter.startListening();
-        CompletedAdapter.startListening();
-    }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        NotCompletedAdapter.stopListening();
-        CompletedAdapter.startListening();
+        queryNotCompleted.addChildEventListener(notCompletedChildLis);
+        queryCompleted.addChildEventListener(completedChildLis);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -394,7 +354,7 @@ public class addtask extends AppCompatActivity  implements FirebaseCallBacks {
         }
 
         if (id == R.id.addFreindToList) {
-            Intent i = new Intent(addtask.this,PickMembers.class);
+            Intent i = new Intent(AddTask.this,PickMembers.class);
             i.putExtra(getResources().getString(R.string.MainScreen_TaskListIntent),todo);
             startActivity(i);
         }
@@ -414,10 +374,25 @@ public class addtask extends AppCompatActivity  implements FirebaseCallBacks {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-
         outState.putParcelable(RECYCLER_LAYOUT1, recycleriew.getLayoutManager().onSaveInstanceState());
         outState.putParcelable(RECYCLER_LAYOUT2, RecyclerCompletedTasks.getLayoutManager().onSaveInstanceState());
-    }
+
+        outState.putSerializable(ListNotCompletedTasks,(Serializable) notCompletedTasks);
+        outState.putSerializable(ListCompletedTasks,(Serializable) completedTasks);
+
+
+        outState.putIntArray(mPosition,
+                new int[]{ mScrollView.getScrollX(), mScrollView.getScrollY()});
+
+
+
+        outState.putInt(mCompletedVisibiltiy,RecyclerCompletedTasks.getVisibility());
+
+
+
+
+
+}
 
 
     @Override
@@ -426,12 +401,35 @@ public class addtask extends AppCompatActivity  implements FirebaseCallBacks {
 
         if(savedInstanceState != null)
         {
-            Log.v("Restore","Restore");
             Parcelable savedRecyclerLayoutState = savedInstanceState.getParcelable(RECYCLER_LAYOUT1);
             recycleriew.getLayoutManager().onRestoreInstanceState(savedRecyclerLayoutState);
 
-            Parcelable savedRecyclerLayoutState1 = savedInstanceState.getParcelable(RECYCLER_LAYOUT2);
-            RecyclerCompletedTasks.getLayoutManager().onRestoreInstanceState(savedRecyclerLayoutState1);
+
+            savedRecyclerLayoutState = savedInstanceState.getParcelable(RECYCLER_LAYOUT2);
+            RecyclerCompletedTasks.getLayoutManager().onRestoreInstanceState(savedRecyclerLayoutState);
+
+
+            if (savedInstanceState.getInt(mCompletedVisibiltiy) == View.VISIBLE) {
+                RecyclerCompletedTasks.setVisibility(View.VISIBLE);
+                ShowComplated.setText(getResources().getString(R.string.HideCompleted_addtask));
+
+            } else if (savedInstanceState.getInt(mCompletedVisibiltiy) == View.GONE) {
+                RecyclerCompletedTasks.setVisibility(View.GONE);
+                ShowComplated.setText(getResources().getString(R.string.ShowCompleted_addtask));
+            }
+
+            final int[] position = savedInstanceState.getIntArray(mPosition);
+            if(position != null)
+                mScrollView.post(new Runnable() {
+                    public void run() {
+                        mScrollView.scrollTo(position[0], position[1]);
+                    }
+                });
+
+
+
+
+
 
         }
 
