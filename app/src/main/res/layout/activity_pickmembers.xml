@@ -31,7 +31,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Shared With :"
+        android:text="@string/SharedWith"
+
         android:layout_margin="10dp"
         />
 
@@ -40,7 +41,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="This List is currently not shared with any one"
+        android:text="@string/ListIsNoShared"
         android:layout_margin="10dp"
         android:id="@+id/TextView_NoSharedFreindsExists"
         android:textColor="#B71C1C"
@@ -60,16 +61,17 @@
 <TextView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Add a new Freind To Share This List With"
+    android:text="@string/AddFreind"
     android:layout_marginLeft="10dp"
-    />
+    android:layout_marginStart="10dp" />
 
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="You Are Currently Dont have any New Friend To Share This List With, To add Freinds, From the Drawer Click on My Freinds"
-         android:layout_margin="10dp"
+        android:text="@string/NoFreinds"
+
+        android:layout_margin="10dp"
          android:textColor="#B71C1C"
         android:id="@+id/TextView_AllFreindsExists"
         android:visibility="gone"
@@ -79,7 +81,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:textColor="#B71C1C"
-    android:text="You Are Not The Owner Of This List, So you can`t Modify the List of people it shared With"
+    android:text="@string/NoOwner"
     android:layout_margin="10dp"
     android:id="@+id/PickMemebers_NoOwnerText"
     android:visibility="gone"

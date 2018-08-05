@@ -55,4 +55,50 @@
 
 
 
+    <string name="TaskStatusContent">TaskStatus</string>
+
+    <string name="ProfileImageContent">ProfileImage</string>
+<string name="TaskListImage">TaskListImage</string>
+
+    <string name="Search">Search</string>
+    <string name="AddWidget">Add To Widget</string>
+    <string name="LogOut">Log Out</string>
+    <string name="MyFriends">My Friends</string>
+
+
+    <string name="SharedLists">Shared Lists with Me</string>
+    <string name="MyAccount">My Account</string>
+    <string name="ListName">List Name</string>
+    <string name="ListFriends">List Of Friends</string>
+
+    <string name="FullName">FullName</string>
+    <string name="Email">Email</string>
+    <string name="Password">Password</string>
+    <string name="VerifyPassword">Verify Password</string>
+    <string name="Create">Create</string>
+
+    <string name="SharedWith">Shared With :</string>
+    <string name="ListIsNoShared">This List is currently not shared with any one</string>
+
+    <string name="AddFreind">Add a new Freind To Share This List With</string>
+    <string name="NoFreinds">You Are Currently Dont have any New Friend To Share This List With, To add Freinds, From the Drawer Click on My Freinds</string>
+
+    <string name="NotOwner">You Are Not The Owner Of This List, So you can`t Modify the List of people it shared With</string>
+
+<string name="EmailHint">Email Address</string>
+    <string name="SignIn">Sign In</string>
+    <string name="CickToRegister">Click Here to Register</string>
+
+    <string name="SearchByEmail">Search By Email</string>
+
+    <string name="AddFreindBtn">Add Friend</string>
+
+    <string name="MyFrindList">My Friends List: </string>
+    <string name="NoFriends">You are Currently Dont Have any Freinds</string>
+
+    <string name="NoShared">You Are Currently Do not have any shared Lists With You</string>
+
+<string name="AddNewTask">Add a New Task</string>
+
+<string name="NoOwner">You Are Not The Owner Of This List, So you can`t Modify the List of people it shared With</string>
 </resources>

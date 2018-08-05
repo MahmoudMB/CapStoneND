@@ -23,7 +23,8 @@
     android:layout_margin="10dp"
    android:scaleType="center"
     android:id="@+id/AddTask_TaskStatus"
-    />
+    android:contentDescription="@string/TaskStatusContent"
+    android:layout_alignParentEnd="true" />
 
 
 </RelativeLayout>

@@ -26,14 +26,12 @@
         android:id="@+id/contactName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Mahmoud Bahaa"
         android:textColor="@color/Black"
         />
     <TextView
         android:id="@+id/contactEmail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Mahmoud.nx@gmail.com"
         android:layout_gravity="center"
         />
    </LinearLayout>
@@ -48,6 +46,7 @@
         android:scaleType="center"
         android:id="@+id/InviteFreinds_TaskStatus"
         android:layout_gravity="center"
-        />
+        android:contentDescription="@string/TaskStatusContent"
+        android:layout_alignParentEnd="true" />
 
 </LinearLayout>

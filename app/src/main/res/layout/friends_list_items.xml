@@ -26,14 +26,12 @@
             android:id="@+id/FriendName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Mahmoud Bahaa"
             android:textColor="@color/Black"
             />
         <TextView
             android:id="@+id/FriendEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Mahmoud.nx@gmail.com"
             android:layout_gravity="center"
             />
     </LinearLayout>
@@ -49,6 +47,8 @@
         android:id="@+id/InviteFreinds_TaskStatus"
         android:layout_gravity="center"
         android:tag="ic_round_check_circle_outline_24px"
-        />
+    android:contentDescription="@string/TaskStatusContent"
+
+        android:layout_alignParentEnd="true" />
 
 </LinearLayout>

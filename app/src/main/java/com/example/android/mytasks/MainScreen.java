@@ -55,13 +55,13 @@ public class MainScreen extends AppCompatActivity implements TasksListsAdapter.L
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mainscreen);
 
-        query = FirebaseDatabase.getInstance()
-                .getReference()
-                .child(getResources().getString(R.string.Users_Node)).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(getResources().getString(R.string.List_Node));
 
         if (FirebaseAuth.getInstance().getCurrentUser()!=null) {
             ButterKnife.bind(this);
             ToDoLists = new ArrayList<>();
+            query = FirebaseDatabase.getInstance()
+                    .getReference()
+                    .child(getResources().getString(R.string.Users_Node)).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(getResources().getString(R.string.List_Node));
 
             recycleriew = (RecyclerView) findViewById(R.id.Tasks_List_Recycler);
             if (savedInstanceState != null) {

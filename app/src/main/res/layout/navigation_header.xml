@@ -14,14 +14,16 @@ android:orientation="vertical"
         android:layout_height="60dp"
         android:src="@drawable/ic_action_user"
         android:layout_gravity="center"
-        android:layout_margin="16dp" />
+        android:layout_margin="16dp"
+        android:contentDescription="@string/ProfileImageContent"
+
+        />
 
 <TextView
     android:id="@+id/Header_Name"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:fontFamily="sans-serif-medium"
-    android:text="Mahmoud Bahaa"
     android:textSize="16sp"
     android:layout_gravity="center"
     />

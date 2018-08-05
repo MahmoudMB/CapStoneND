@@ -4,7 +4,7 @@ android {
         config {
             keyAlias 'nanodegree'
             keyPassword '123456'
-            storeFile file('C:/Users/SG/Desktop/MyTasks/Keystore.jks')
+            storeFile file("../Keystore.jks")
             storePassword '123456'
         }
     }

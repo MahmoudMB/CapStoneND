@@ -3,14 +3,14 @@
 
 <item
     android:id="@+id/account_drawer"
-    android:title="My Account"
+    android:title="@string/MyAccount"
     android:icon="@drawable/ic_action_user"
     />
 
 
     <item
         android:id="@+id/SharedLists_drawer"
-        android:title="Shared Lists with Me"
+        android:title="@string/SharedLists"
         android:icon="@drawable/ic_action_share"
 
         ></item>
@@ -20,14 +20,16 @@
 
     <item
         android:id="@+id/Friends_drawer"
-        android:title="My Friends"
+        android:title="@string/MyFriends"
         android:icon="@drawable/ic_action_group"
+
+
 ></item>
 
 
     <item
         android:id="@+id/LogOut_drawer"
-        android:title="LogOut"
+        android:title="@string/LogOut"
         android:icon="@drawable/ic_action_settings"
  ></item>
 

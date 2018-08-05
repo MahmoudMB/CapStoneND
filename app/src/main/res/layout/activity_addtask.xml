@@ -36,7 +36,7 @@
         android:layout_height="50dp"
         android:background="@color/colorPrimary"
         android:textColor="#FFFFFF"
-        android:hint="Add a New Task"
+        android:hint="@string/AddNewTask"
         android:textColorHint="#FFFFFF"
         android:id="@+id/addTask_AddNewTaskEditText"
         android:padding="10dp"
@@ -60,7 +60,8 @@
         android:layout_alignTop="@+id/addTask_AddNewTaskEditText"
         android:layout_alignRight="@+id/addTask_AddNewTaskEditText"
         android:visibility="gone"
-        />
+        android:layout_marginEnd="5dp"
+        android:layout_alignEnd="@+id/addTask_AddNewTaskEditText" />
 
     </RelativeLayout>
 <ScrollView

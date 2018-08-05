@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.example.android.mytasks.addnewlist">
+    tools:context="com.example.android.mytasks.AddNewList">
 
 
 
@@ -43,14 +43,14 @@
         android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:hint="List Name"
+        android:hint="@string/ListName"
         android:id="@+id/addNewList_ListNameEditText"
         />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="List Friends"
+        android:text="@string/ListFriends"
         android:layout_margin="10dp"
         />
 
@@ -110,7 +110,7 @@
         android:translationZ="@dimen/fab_press_translation_z"
         android:src="@drawable/ic_round_add_24px"
         android:contentDescription="@string/ContentDesribtion_AddList"
-        />
+        android:layout_marginEnd="@dimen/fab_margin" />
 
     </android.support.design.widget.CoordinatorLayout>
 

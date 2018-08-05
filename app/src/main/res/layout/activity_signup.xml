@@ -24,14 +24,17 @@
                 android:id="@+id/SignUp_Name_EditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Fullname"
+                android:hint="@string/FullName"
+
                 android:textColorHint="#ADCCE2"
                 android:textColor="#ADCCE2"
                 android:layout_marginLeft="22dp"
                 android:inputType="text"
                 android:background="#0000"
                 android:padding="16dp"
-                android:layout_marginRight="35dp"/>
+                android:layout_marginRight="35dp"
+                android:layout_marginStart="22dp"
+                android:layout_marginEnd="35dp" />
 
 
             <View
@@ -47,7 +50,7 @@
                 android:id="@+id/SignUp_Email_EditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Email"
+                android:hint="@string/Email"
 
                 android:textColorHint="#ADCCE2"
                 android:textColor="#ADCCE2"
@@ -55,7 +58,9 @@
                 android:inputType="text"
                 android:background="#0000"
                 android:padding="16dp"
-                android:layout_marginRight="35dp"/>
+                android:layout_marginRight="35dp"
+                android:layout_marginStart="22dp"
+                android:layout_marginEnd="35dp" />
 
 
             <View
@@ -76,7 +81,7 @@
                 android:id="@+id/SignUp_Password_EditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Password"
+                android:hint="@string/Password"
                 android:textColorHint="#ADCCE2"
                 android:layout_marginLeft="22dp"
                 android:inputType="textPassword"
@@ -85,7 +90,9 @@
                 android:background="#0000"
                 android:padding="16dp"
 
-                android:layout_marginRight="35dp"/>
+                android:layout_marginRight="35dp"
+                android:layout_marginStart="22dp"
+                android:layout_marginEnd="35dp" />
             <View
                 android:layout_width="match_parent"
                 android:layout_marginLeft="40dp"
@@ -100,7 +107,7 @@
                 android:id="@+id/SignUp_VerifyPassword_EditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Verify Password"
+                android:hint="@string/VerifyPassword"
 
                 android:textColorHint="#ADCCE2"
                 android:textColor="#ADCCE2"
@@ -109,7 +116,9 @@
                 android:background="#0000"
                 android:padding="16dp"
 
-                android:layout_marginRight="35dp"/>
+                android:layout_marginRight="35dp"
+                android:layout_marginStart="22dp"
+                android:layout_marginEnd="35dp" />
 
 
             <View
@@ -131,7 +140,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rect"
-                android:text="CREATE"
+                android:text="@string/Create"
+
                 android:textSize="16dp"
                 android:textColor="#fff"
                 android:gravity="center"

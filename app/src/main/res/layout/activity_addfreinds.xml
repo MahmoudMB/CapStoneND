@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:id="@+id/addFriends_parentLayout"
-    tools:context="com.example.android.mytasks.addfreinds">
+    tools:context="com.example.android.mytasks.AddFriends">
 
 
 
@@ -42,7 +42,7 @@
         android:layout_height="50dp"
         android:background="@color/colorPrimary"
         android:textColor="#FFFFFF"
-        android:hint="Search By Email"
+        android:hint="@string/SearchByEmail"
         android:textColorHint="#FFFFFF"
         android:id="@+id/SearchFriend_EditText"
         android:padding="10dp"
@@ -54,7 +54,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/AddFreinds_Search"
-        android:text="Search"
+        android:text="@string/Search"
         android:textColor="#FFFFFF"
         android:layout_alignTop="@+id/SearchFriend_EditText"
         android:layout_alignRight="@+id/SearchFriend_EditText"
@@ -64,7 +64,8 @@
         android:layout_marginRight="8dp"
         android:visibility="gone"
         android:padding="10dp"
-        />
+        android:layout_alignEnd="@+id/SearchFriend_EditText"
+        android:layout_marginEnd="8dp" />
 
 </RelativeLayout>
 
@@ -101,14 +102,12 @@
                 android:id="@+id/AddFreind_FriendName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Mahmoud Bahaa"
                 android:textColor="@color/Black"
                 />
             <TextView
                 android:id="@+id/AddFreind_FriendEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Mahmoud.nx@gmail.com"
                 android:layout_gravity="center"
 
                 />
@@ -121,13 +120,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/AddFreinds_Add"
-            android:text="Add Friend"
+            android:text="@string/AddFreindBtn"
         android:layout_gravity="center"
             android:layout_marginRight="5dp"
             android:padding="10dp"
 
 
-            />
+            android:layout_marginEnd="5dp" />
     </LinearLayout>
 
 
@@ -136,7 +135,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="My Friends List: "
+        android:text="@string/MyFrindList"
         android:layout_margin="10dp"
         />
 
@@ -144,10 +143,10 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="You are Currently Dont Have any Freinds"
+        android:text="@string/NoFriends"
         android:layout_marginLeft="10dp"
         android:id="@+id/NoFriends"
-        />
+        android:layout_marginStart="10dp" />
 
 
 
