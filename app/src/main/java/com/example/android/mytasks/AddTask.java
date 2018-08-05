@@ -67,10 +67,6 @@ public class AddTask extends AppCompatActivity  implements FirebaseCallBacks {
     private static final String ListCompletedTasks = "ListCompletedTasks";
     private static final String ListNotCompletedTasks = "ListNotCompletedTasks";
 
-
-    private static final String mShowCompletedVisible = "ShowCompletedVisible";
-    private static final String mShowCompletedNotVisible = "ShowCompletedNotVisible";
-
     private static final String mCompletedVisibiltiy = "CompletedVisibiltiy";
 
     private ScrollView mScrollView;
@@ -120,7 +116,7 @@ public class AddTask extends AppCompatActivity  implements FirebaseCallBacks {
                 if (!notCompletedTasks.contains(e))
                 notCompletedTasks.add(e);
                 NotCompletedAdapter.notifyDataSetChanged();
-                Log.v("Add NotComplted", e.getName() + " ");
+
 
             }
 
@@ -135,7 +131,7 @@ public class AddTask extends AppCompatActivity  implements FirebaseCallBacks {
                 notCompletedTasks.remove(e);
                 NotCompletedAdapter.notifyDataSetChanged();
 
-                Log.v("Removed Not Complted", e.getName() + " ");
+
 
             }
 
@@ -158,7 +154,7 @@ public class AddTask extends AppCompatActivity  implements FirebaseCallBacks {
                 completedTasks.add(e);
                 CompletedAdapter.notifyDataSetChanged();
 
-                Log.v("Add Complted", e.getName() + " ");
+
 
             }
 
