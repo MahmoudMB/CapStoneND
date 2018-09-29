@@ -24,7 +24,7 @@ it shows you the tasks that you already have, to Create A new List, from the but
   ![alt tag](https://github.com/MahmoudMB/ScreenShotMytasks1/blob/master/Screenshot_2018-09-29-07-33-55.png)
   
   
-  After You Click On The add Button, the list name and the number of friends and number of items will b shown for each list
+  After You Click On The add Button, the list name and the number of friends and number of items will be shown for each list
    ![alt tag](https://github.com/MahmoudMB/ScreenShotMytasks1/blob/master/Screenshot_2018-09-29-06-51-04.png)
   
   
@@ -42,7 +42,7 @@ it shows you the tasks that you already have, to Create A new List, from the but
   
   
   if You want to see the shared Lists With You from the Main screen click on (Shared Lists With Me )
- ![alt tag](https://github.com/MahmoudMB/CapStone_ScreenShots/blob/master/99.png)
+ ![alt tag](https://github.com/MahmoudMB/ScreenShotMytasks1/blob/master/Screenshot_2018-09-29-07-23-08.png)
   
   
   
